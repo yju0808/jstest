@@ -22,7 +22,25 @@
     const encrypted_name = crypt.encrypt(name).trim();
     const encrypted_birthday = crypt.encrypt(birthday).trim();
     const encrypted_password = crypt.encrypt(password).trim();
-    document.write(encrypted_name + "|" + encrypted_birthday + "|" + encrypted_password);
+
+
+    var http = new XMLHttpRequest();
+    var url = 'https://kwehcs.eduro.go.kr/v2/findUser';
+    var params = {
+      "birthday": encrypted_birthday,
+      "loginType":"school",
+      "name": encrypted_name,
+      "orgCode":"K100000460"
+    };
+    http.open('POST', url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    res = http.send(params);
+
+    document.write(res)
+
+
   </script>
 </head>
 </html>
